@@ -1,22 +1,36 @@
-import axios from "axios";
+import axios from 'axios';
 
-
-export const increment=(number)=> {
+export const increment = (number) => {
   return {
-    type: "increment",
-    payload: number
+    type: 'increment',
+    payload: number,
   };
-}
+};
 
-export const decrement=()=> {
+export const decrement = () => {
   return {
-    type: "decrement"
+    type: 'decrement',
   };
-}
+};
 
-export const getAllUsers = (test)=>{
-  return{
-    type:"getAllUsers",
-    payload:test
-  }
-}
+export const getAllUsers = (data) => {
+  return {
+    type: 'getAllUsers',
+    payload: data,
+  };
+};
+
+export const fetchData = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        'https://api.openweathermap.org/data/2.5/forecast?q=beirut&appid=8b0085fe50c89792c823f75df807415e'
+      );
+
+      // console.log(response.data.list);
+      dispatch(getAllUsers(response.data.list));
+    } catch (error) {
+      console.log('first');
+    }
+  };
+};

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, getAllUsers } from "./actions/action";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, fetchData } from './actions/action';
 
 const App = () => {
   const dispacth = useDispatch();
@@ -13,7 +13,12 @@ const App = () => {
   const counter = useSelector((state) => state.counter);
   const users = useSelector((state) => state.users);
 
-  console.log(counter);
+  useEffect(() => {
+    dispacth(fetchData());
+  }, [dispacth]);
+
+  // console.log(counter);
+  // console.log(users);
   return (
     <div>
       <h1>Counter: {counter}</h1>
@@ -21,14 +26,14 @@ const App = () => {
       <button onClick={() => dispacth(decrement())}>-</button>
       <button
         onClick={() => {
-          dispacth(getAllUsers("test"));
-          console.log(users);
+          // dispacth(fetchData());
+          // console.log(users);
         }}
       >
         Get Users
       </button>
-      <h1>{users}</h1>
-      <button onClick={()=>console.log(users)}>click</button>
+      {/* <h1>{users}</h1> */}
+      <button onClick={() => console.log(users)}>click</button>
       {/* <ul>
         {  users &&
             users.map((user)=>(

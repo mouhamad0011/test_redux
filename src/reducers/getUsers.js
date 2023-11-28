@@ -1,18 +1,7 @@
-import axios from "axios";
-const usersReducer =async(state="" , action) => {
-  //console.log(state)
+const usersReducer = (state = { data: null }, action) => {
   switch (action.type) {
-    case "getAllUsers":
-      //const fetchUsers= await axios.get(`http://localhost:5000/users/getAll`)
-      //console.log(fetchUsers)
-      return state+action.payload;
-        // .then((response) => {
-        //   //console.log(response.data.users);
-        //   return response.data.users;
-        // })
-        // .catch((error) => {
-        //   return error;
-        // });
+    case 'getAllUsers':
+      return { ...state, data: action.payload };
     default:
       return state;
   }
