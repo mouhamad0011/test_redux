@@ -1,44 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, getAllUsers } from "./actions/action";
+import { increment, decrement,testing,getAllCars,addUser } from "./actions/action";
 
 const App = () => {
+  const [name,setName] = useState("");
+  const [number,setNumber] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [role,setRole] = useState("");
+  const [bool,setBool] = useState(true);
   const dispacth = useDispatch();
-  // //   useEffect (()=>{
-  //     const fetchUsers=()=> dispacth(getAllUsers());
-  //     fetchUsers();
-  // //   },[])
 
   const counter = useSelector((state) => state.counter);
-  const users = useSelector((state) => state.users);
-
-  console.log(counter);
+  //const users = useSelector((state) => state.users);
+  const test = useSelector((state) => state.test);
+  //console.log(counter);
+  const cars = useSelector((state)=> state.cars);
+  const getUsers=()=>dispacth(testing());
+  const getCars =()=> dispacth(getAllCars())
+  
+  useEffect(() => {
+    getUsers();
+    getCars();
+  }, [dispacth]);
+  console.log(cars);
+  console.log(test);
   return (
     <div>
-      <h1>Counter: {counter}</h1>
-      <button onClick={() => dispacth(increment(5))}>+</button>
-      <button onClick={() => dispacth(decrement())}>-</button>
-      <button
-        onClick={() => {
-          dispacth(getAllUsers("test"));
-          console.log(users);
-        }}
-      >
-        Get Users
-      </button>
-      <h1>{users}</h1>
-      <button onClick={()=>console.log(users)}>click</button>
-      {/* <ul>
-        {  users &&
-            users.map((user)=>(
-                <li>
-                    {user.fullName}
-                </li>
-            ))
-        }
-      </ul> */}
-      {/* <h1>{users && users._id}</h1> */}
+      {/* <form onSubmit={()=>{dispacth(addUser(name,number,email,password,role));setBool(!bool)}}>
+        fullName<input type="text" onChange={(e)=>setName(e.target.value)}/>
+        phone number<input type="text" onChange={(e)=>setNumber(e.target.value)}/>
+        email<input type="email" onChange={(e)=>setEmail(e.target.value)}/>
+        password<input type="password" onChange={(e)=>setPassword(e.target.value)}/>
+        role<input type="text" onChange={(e)=>setRole(e.target.value)}/>
+        <button type="submit">submit</button>
+      </form> */}
+      
+      <button onClick={()=>dispacth(addUser(test,"test","1c12cdccc2xs43ccd3","testcccxcsccdd@gmail.com","12345","admin"))}>add</button>
+   
+      
+      
+     
     </div>
   );
 };
